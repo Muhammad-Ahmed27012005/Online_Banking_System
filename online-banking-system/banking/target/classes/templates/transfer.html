@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Money - Online Banking</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <div>
+                <h1>🔄 Transfer Money</h1>
+                <p>Send money to other accounts</p>
+            </div>
+            <div class="account-info">
+                <p>Balance: $<span th:text="${#numbers.formatDecimal(user.account.balance, 1, 2)}"></span></p>
+                <a href="/dashboard" class="btn btn-secondary">← Back</a>
+            </div>
+        </header>
+
+        <nav class="dashboard-nav">
+            <a href="/dashboard" class="nav-link">🏠 Dashboard</a>
+            <a href="/deposit" class="nav-link">💰 Deposit</a>
+            <a href="/withdraw" class="nav-link">💳 Withdraw</a>
+            <a href="/transfer" class="nav-link active">↔ Transfer</a>
+            <a href="/transactions" class="nav-link">📊 Transactions</a>
+            <a href="/logout" class="nav-link logout">🚪 Logout</a>
+        </nav>
+
+        <main class="operation-main">
+            <div class="operation-card">
+                <div class="operation-header">
+                    <h2>Transfer Funds</h2>
+                    <p>Send money to another account</p>
+                </div>
+
+                <div th:if="${error}" class="alert alert-error">
+                    <span th:text="${error}"></span>
+                </div>
+
+                <div class="current-balance">
+                    <h3>Your Balance</h3>
+                    <div class="balance-display">
+                        $<span th:text="${#numbers.formatDecimal(user.account.balance, 1, 2)}"></span>
+                    </div>
+                </div>
+
+                <form action="/transfer" method="post" class="operation-form">
+                    <div class="form-group">
+                        <label for="toAccount">Receiver Account Number</label>
+                        <input type="number" id="toAccount" name="toAccount" required
+                            placeholder="Enter receiver's account number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Transfer Amount ($)</label>
+                        <input type="number" id="amount" name="amount" required min="0.01" step="0.01"
+                            placeholder="Enter amount to transfer">
+                        <small class="form-help">Maximum transfer: Your current balance</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            Transfer Money
+                        </button>
+                        <a href="/dashboard" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+
+                <div class="operation-info">
+                    <h3>Transfer Guidelines:</h3>
+                    <ul>
+                        <li>Ensure the receiver's account number is correct</li>
+                        <li>Transfers are processed instantly</li>
+                        <li>Both parties receive transaction records</li>
+                        <li>Transfers cannot be reversed automatically</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2024 Online Banking System | Secure Money Transfer</p>
+        </footer>
+    </div>
+</body>
+
+</html>

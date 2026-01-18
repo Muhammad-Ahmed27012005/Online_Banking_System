@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Online Banking</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <div>
+                <h1>🏦 Online Banking Dashboard</h1>
+                <p>Welcome, <span th:text="${user.fullName}"></span></p>
+            </div>
+            <div class="account-info">
+                <p>Account #: <strong th:text="${user.accountNumber}"></strong></p>
+                <a href="/logout" class="btn btn-danger">Logout</a>
+            </div>
+        </header>
+
+        <nav class="dashboard-nav">
+            <a href="/dashboard" class="nav-link active">🏠 Dashboard</a>
+            <a href="/deposit" class="nav-link">💰 Deposit</a>
+            <a href="/withdraw" class="nav-link">💳 Withdraw</a>
+            <a href="/transfer" class="nav-link">↔ Transfer</a>
+            <a href="/transactions" class="nav-link">📊 Transactions</a>
+        </nav>
+
+        <main class="dashboard-main">
+            <div th:if="${success}" class="alert alert-success">
+                <span th:text="${success}"></span>
+            </div>
+            <div th:if="${error}" class="alert alert-error">
+                <span th:text="${error}"></span>
+            </div>
+
+            <div class="balance-card">
+                <div class="balance-header">
+                    <h2>Current Balance</h2>
+                    <span class="balance-icon">💰</span>
+                </div>
+                <div class="balance-amount">
+                    $<span th:text="${#numbers.formatDecimal(user.account.balance, 1, 2)}"></span>
+                </div>
+                <p class="balance-info">Available for withdrawal and transfers</p>
+            </div>
+
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="action-grid">
+                    <a href="/deposit" class="action-card">
+                        <div class="action-icon">➕</div>
+                        <h3>Deposit Money</h3>
+                        <p>Add funds to your account</p>
+                    </a>
+
+                    <a href="/withdraw" class="action-card">
+                        <div class="action-icon">➖</div>
+                        <h3>Withdraw Money</h3>
+                        <p>Withdraw from your account</p>
+                    </a>
+
+                    <a href="/transfer" class="action-card">
+                        <div class="action-icon">🔄</div>
+                        <h3>Transfer Money</h3>
+                        <p>Send money to other accounts</p>
+                    </a>
+
+                    <a href="/transactions" class="action-card">
+                        <div class="action-icon">📋</div>
+                        <h3>View Transactions</h3>
+                        <p>Check your transaction history</p>
+                    </a>
+                </div>
+            </div>
+
+            <div class="account-details">
+                <h2>Account Information</h2>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">Account Holder:</span>
+                        <span class="detail-value" th:text="${user.fullName}"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Account Number:</span>
+                        <span class="detail-value" th:text="${user.accountNumber}"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Email:</span>
+                        <span class="detail-value" th:text="${user.email}"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Total Transactions:</span>
+                        <span class="detail-value" th:text="${user.transactions.size()}"></span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2024 Online Banking System | <span th:text="${user.fullName}"></span> | Account #: <span
+                    th:text="${user.accountNumber}"></span></p>
+        </footer>
+    </div>
+</body>
+
+</html>

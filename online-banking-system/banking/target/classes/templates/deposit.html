@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit Money - Online Banking</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <div>
+                <h1>💰 Deposit Money</h1>
+                <p>Add funds to your account</p>
+            </div>
+            <div class="account-info">
+                <p>Balance: $<span th:text="${#numbers.formatDecimal(user.account.balance, 1, 2)}"></span></p>
+                <a href="/dashboard" class="btn btn-secondary">← Back</a>
+            </div>
+        </header>
+
+        <nav class="dashboard-nav">
+            <a href="/dashboard" class="nav-link">🏠 Dashboard</a>
+            <a href="/deposit" class="nav-link active">💰 Deposit</a>
+            <a href="/withdraw" class="nav-link">💳 Withdraw</a>
+            <a href="/transfer" class="nav-link">↔ Transfer</a>
+            <a href="/transactions" class="nav-link">📊 Transactions</a>
+            <a href="/logout" class="nav-link logout">🚪 Logout</a>
+        </nav>
+
+        <main class="operation-main">
+            <div class="operation-card">
+                <div class="operation-header">
+                    <h2>Make a Deposit</h2>
+                    <p>Enter the amount you want to deposit</p>
+                </div>
+
+                <div class="current-balance">
+                    <h3>Current Balance</h3>
+                    <div class="balance-display">
+                        $<span th:text="${#numbers.formatDecimal(user.account.balance, 1, 2)}"></span>
+                    </div>
+                </div>
+
+                <form action="/deposit" method="post" class="operation-form">
+                    <div class="form-group">
+                        <label for="amount">Deposit Amount ($)</label>
+                        <input type="number" id="amount" name="amount" required min="0.01" step="0.01"
+                            placeholder="Enter amount to deposit">
+                        <small class="form-help">Minimum deposit: $0.01</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            Deposit Money
+                        </button>
+                        <a href="/dashboard" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+
+                <div class="operation-info">
+                    <h3>How it works:</h3>
+                    <ul>
+                        <li>Enter the amount you wish to deposit</li>
+                        <li>Click "Deposit Money" to complete the transaction</li>
+                        <li>The amount will be instantly added to your balance</li>
+                        <li>A transaction record will be created in your history</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2024 Online Banking System | Secure Transaction Processing</p>
+        </footer>
+    </div>
+</body>
+
+</html>

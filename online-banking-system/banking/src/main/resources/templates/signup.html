@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Online Banking</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Create New Account</h1>
+            <p>Join our secure banking platform</p>
+        </header>
+
+        <main class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Account Registration</h2>
+                    <p>Fill in your details to create an account</p>
+                </div>
+
+                <form action="/signup" method="post" class="auth-form">
+                    <div th:if="${error}" class="alert alert-error">
+                        <span th:text="${error}"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name"
+                            minlength="3" maxlength="50">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password *</label>
+                        <input type="password" id="password" name="password" required minlength="6"
+                            placeholder="Create a password (min. 6 characters)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="initialDeposit">Initial Deposit Amount ($) *</label>
+                        <input type="number" id="initialDeposit" name="initialDeposit" required min="0" step="0.01"
+                            placeholder="Enter initial deposit amount" value="0">
+                        <small class="form-help">Minimum deposit: $0. You can deposit more later.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">
+                        Create Account & Generate Account Number
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="/login">Login here</a></p>
+                    <p><a href="/">← Back to Home</a></p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2024 Online Banking System</p>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw Money - Online Banking</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="dashboard-header">
+            <div>
+                <h1>💳 Withdraw Money</h1>
+                <p>Withdraw funds from your account</p>
+            </div>
+            <div class="account-info">
+                <p>Balance: $<span th:text="${#numbers.formatDecimal(user.account.balance, 1, 2)}"></span></p>
+                <a href="/dashboard" class="btn btn-secondary">← Back</a>
+            </div>
+        </header>
+
+        <nav class="dashboard-nav">
+            <a href="/dashboard" class="nav-link">🏠 Dashboard</a>
+            <a href="/deposit" class="nav-link">💰 Deposit</a>
+            <a href="/withdraw" class="nav-link active">💳 Withdraw</a>
+            <a href="/transfer" class="nav-link">↔ Transfer</a>
+            <a href="/transactions" class="nav-link">📊 Transactions</a>
+            <a href="/logout" class="nav-link logout">🚪 Logout</a>
+        </nav>
+
+        <main class="operation-main">
+            <div class="operation-card">
+                <div class="operation-header">
+                    <h2>Make a Withdrawal</h2>
+                    <p>Enter the amount you want to withdraw</p>
+                </div>
+
+                <div th:if="${error}" class="alert alert-error">
+                    <span th:text="${error}"></span>
+                </div>
+
+                <div class="current-balance">
+                    <h3>Available Balance</h3>
+                    <div class="balance-display">
+                        $<span th:text="${#numbers.formatDecimal(user.account.balance, 1, 2)}"></span>
+                    </div>
+                </div>
+
+                <form action="/withdraw" method="post" class="operation-form">
+                    <div class="form-group">
+                        <label for="amount">Withdrawal Amount ($)</label>
+                        <input type="number" id="amount" name="amount" required min="0.01" step="0.01"
+                            placeholder="Enter amount to withdraw">
+                        <small class="form-help">Maximum withdrawal: Your current balance</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            Withdraw Money
+                        </button>
+                        <a href="/dashboard" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+
+                <div class="operation-info">
+                    <h3>Important Notes:</h3>
+                    <ul>
+                        <li>You can only withdraw up to your available balance</li>
+                        <li>Withdrawals are processed instantly</li>
+                        <li>Transaction records are maintained for security</li>
+                        <li>Contact support for large withdrawal requests</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2024 Online Banking System | Secure Withdrawal Processing</p>
+        </footer>
+    </div>
+</body>
+
+</html>
